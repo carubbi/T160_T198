@@ -1,3 +1,4 @@
+// Declarar as variáveis
 let entradaA;
 let entradaB;
 let entradaC;
@@ -22,13 +23,13 @@ C = parseFloat(entradaC);
 
 delta = (B * B) - (4 * A * C);
 
+// Saída de dados
 if ((A === 0) || (delta < 0)) {
   console.log('Impossivel calcular');
 } else {
   raizDelta = delta ** (1 / 2);
   R1 = (-B + raizDelta) / (2 * A);
   R2 = (-B - raizDelta) / (2 * A);
-  // Saída de dados
   console.log('R1 = ' + R1.toFixed(5));
   console.log('R2 = ' + R2.toFixed(5));
 }

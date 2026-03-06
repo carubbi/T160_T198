@@ -31,5 +31,5 @@ if (codProd == 1) {
 // Calcular o total a pagar
 totalPagar = qtdProd * precoProd;
 
-// Imprimir o total a pagar
+// Saída de dados
 console.log(`Total: R$ ${totalPagar.toFixed(2)}`);

@@ -1,9 +1,14 @@
+// Declarar as variáveis
 let entradaValor;
 let valor;
 
+// Entrada de dados
 entradaValor = prompt('Digite o valor: ');
+
+// Processamento dos dados
 valor = parseFloat(entradaValor);
 
+// Saída de dados
 if (valor < 0 || valor > 100) {
   console.log('Fora de intervalo');
 } else if (valor <= 25) {

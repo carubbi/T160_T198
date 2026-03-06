@@ -40,5 +40,5 @@ switch (DDD) {
         cidade = 'nao cadastrada';
 }
 
-// Imprimir o total a pagar
+// Saída de dados
 console.log(cidade);
