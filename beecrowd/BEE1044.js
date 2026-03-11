@@ -3,6 +3,7 @@ let entradaA;
 let entradaB;
 let A;
 let B;
+let mensagem;
 
 // Entrada de dados
 entradaA = prompt('Digite A: ');
@@ -13,8 +14,10 @@ A = parseInt(entradaA);
 B = parseInt(entradaB);
 
 // Saída de dados
-if ((A % B === 0) || (B % A === 0)) {
-  console.log(`Sao Multiplos`);
+if ((A % B == 0) || (B % A == 0)) {
+  mensagem = 'Sao';
 } else {
-  console.log(`Nao sao Multiplos`);
+  mensagem = 'Nao sao';
 }
+
+console.log(`${mensagem} Multiplos`);
