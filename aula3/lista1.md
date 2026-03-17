@@ -1,3 +1,5 @@
+<img src="../imgs/UNIFOR_logo1b.png" width="400"> 
+
 # Raciocínio Lógico Algorítmico
 Orientador: Prof. Me Ricardo Carubbi
 
