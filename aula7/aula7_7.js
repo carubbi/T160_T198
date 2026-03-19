@@ -10,6 +10,7 @@ nota = parseFloat(nota);
 
 do {
   if (nota < 0 || nota > 10) {
+    console.log("Nota invalida");
     nota = prompt("Nota invalida. Digite uma nota de 0 a 10:"); // -1, 8
     nota = parseFloat(nota);
   }

@@ -47,7 +47,7 @@ for (inicializacao; condicao; incremento) {
 
 ## 4. Exemplos práticos
 
-### Exemplo 1: `while` basico com contador
+### Exemplo 1: `while` básico com contador
 
 #### Descrição narrativa
 1. Ler a quantidade de iteracoes.
@@ -79,7 +79,7 @@ Entrada escolhida: `quantidade = 3`
 | 1 | 0 | V | 0 |
 | 2 | 1 | V | 1 |
 | 3 | 2 | V | 2 |
-| 4 | 3 | F | fim |
+| 4 | 3 | F | - |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -100,7 +100,7 @@ while (i < quantidade) {
 }
 ```
 
-### Exemplo 2: `while` para pedir um numero positivo
+### Exemplo 2: `while` para pedir um número positivo
 
 #### Descrição narrativa
 1. Ler um número.
@@ -111,23 +111,23 @@ while (i < quantidade) {
 ```mermaid
 flowchart TD
 A([INICIO]) --> B[/num/]
-B --> C{num > 0}
+B --> C{num <= 0}
 subgraph SEQ [Laco while]
-C -- F --> D[/Numero invalido/]
+C -- V --> D[/Numero invalido/]
 D --> E[/num/]
 E -- LOOP --> C
 end
-C -- V --> F[/Numero valido/]
+C -- F --> F[/Numero valido/]
 F --> G([FIM])
 ```
 
 #### Teste de mesa
 
-| passo | num | num > 0 | mensagem | saída |
+| passo | num | num <= 0 | mensagem | saída |
 | --- | --- | --- | --- | --- |
-| 1 | -3 | F | Numero invalido | - |
-| 2 | 0 | F | Numero invalido\nNumero invalido | - |
-| 3 | 7 | V | Numero invalido\nNumero invalido\nNumero valido | Numero invalido / Numero invalido / Numero valido |
+| 1 | -3 | V | Numero invalido | Numero invalido |
+| 2 | 0 | V | Numero invalido\nNumero invalido | Numero invalido / Numero invalido |
+| 3 | 7 | F | Numero invalido\nNumero invalido\nNumero valido | Numero invalido / Numero invalido / Numero valido |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -141,6 +141,7 @@ num = prompt("Digite um numero positivo:"); // -3
 num = parseInt(num);
 
 while (num <= 0) {
+    console.log("Numero invalido");
     num = prompt("Digite um numero positivo:"); // 0, 7
     num = parseInt(num);
 }
@@ -149,7 +150,7 @@ while (num <= 0) {
 console.log("Numero valido");
 ```
 
-### Exemplo 3: `while` para pedir senha ate acertar
+### Exemplo 3: `while` para pedir senha até acertar
 
 #### Descrição narrativa
 1. Ler a senha digitada.
@@ -160,23 +161,23 @@ console.log("Numero valido");
 ```mermaid
 flowchart TD
 A([INICIO]) --> B[/senha/]
-B --> C{senha == 1234}
+B --> C{senha != 1234}
 subgraph SEQ [Laco while]
-C -- F --> D[/Senha incorreta/]
+C -- V --> D[/Senha incorreta/]
 D --> E[/senha/]
 E -- LOOP --> C
 end
-C -- V --> F[/Acesso liberado/]
+C -- F --> F[/Acesso liberado/]
 F --> G([FIM])
 ```
 
 #### Teste de mesa
 
-| passo | senha | senha == 1234 | senha != 1234 | mensagem | saída |
-| --- | --- | --- | --- | --- | --- |
-| 1 | 1111 | F | V | Senha incorreta | - |
-| 2 | 9999 | F | V | Senha incorreta\nSenha incorreta | - |
-| 3 | 1234 | V | F | Senha incorreta\nSenha incorreta\nAcesso liberado | Senha incorreta / Senha incorreta / Acesso liberado |
+| passo | senha | senha != 1234 | mensagem | saída |
+| --- | --- | --- | --- | --- |
+| 1 | 1111 | V | Senha incorreta | Senha incorreta |
+| 2 | 9999 | V | Senha incorreta\nSenha incorreta | Senha incorreta / Senha incorreta |
+| 3 | 1234 | F | Senha incorreta\nSenha incorreta\nAcesso liberado | Senha incorreta / Senha incorreta / Acesso liberado |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -201,7 +202,25 @@ mensagem += "Acesso liberado";
 console.log(mensagem);
 ```
 
-### Exemplo 4: `while` para pedir numeros ate digitar 0
+#### Opção equivalente com `console.log()` dentro do `while`
+```javascript
+// Declaracao de variaveis
+let senha;
+
+// Entrada
+senha = prompt("Digite a senha:"); // 1111
+
+// Processamento
+while (senha != "1234") {
+    console.log("Senha incorreta");
+    senha = prompt("Digite a senha:"); // 9999, 1234
+}
+
+// Saida
+console.log("Acesso liberado");
+```
+
+### Exemplo 4: `while` para pedir números até digitar 0
 
 #### Descrição narrativa
 1. Ler um número.
@@ -256,7 +275,7 @@ while (num != 0) {
 console.log(soma);
 ```
 
-### Exemplo 5: `do...while` basico com contador
+### Exemplo 5: `do...while` básico com contador
 
 #### Descrição narrativa
 1. Declarar um contador com valor inicial zero.
@@ -280,7 +299,7 @@ E -- F --> F([FIM])
 
 #### Teste de mesa
 
-| passo | i exibido | i < 3 apos incremento | saída |
+| passo | i | i < 3 após incremento | saída |
 | --- | --- | --- | --- |
 | 1 | 0 | V | 0 |
 | 2 | 1 | V | 1 |
@@ -300,7 +319,7 @@ do {
 } while (i < 3);
 ```
 
-### Exemplo 6: `do...while` para pedir um numero positivo
+### Exemplo 6: `do...while` para pedir um número positivo
 
 #### Descrição narrativa
 1. Ler um número.
@@ -314,22 +333,22 @@ flowchart TD
 A([INICIO]) --> B[/num/]
 B --> C
 subgraph SEQ [Laco do...while]
-C{num > 0}
-C -- F --> D[/Numero invalido/]
+C{num <= 0}
+C -- V --> D[/Numero invalido/]
 D --> E[/num/]
 E -- LOOP --> C
 end
-C -- V --> F[/Numero valido/]
+C -- F --> F[/Numero valido/]
 F --> G([FIM])
 ```
 
 #### Teste de mesa
 
-| passo | num | num > 0 | mensagem | saída |
+| passo | num | num <= 0 | mensagem | saída |
 | --- | --- | --- | --- | --- |
-| 1 | -2 | F | - | - |
-| 2 | 0 | F | - | - |
-| 3 | 5 | V | Numero valido | Numero valido |
+| 1 | -2 | V | Numero invalido | Numero invalido |
+| 2 | 0 | V | Numero invalido\nNumero invalido | Numero invalido / Numero invalido |
+| 3 | 5 | F | Numero invalido\nNumero invalido\nNumero valido | Numero invalido / Numero invalido / Numero valido |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -344,6 +363,7 @@ num = parseInt(num);
 
 do {
     if (num <= 0) {
+        console.log("Numero invalido");
         num = prompt("Digite um numero positivo:"); // 0, 5
         num = parseInt(num);
     }
@@ -353,7 +373,7 @@ do {
 console.log("Numero valido");
 ```
 
-### Exemplo 7: `do...while` para pedir nota ate ela estar valida
+### Exemplo 7: `do...while` para pedir nota até ela estar válida
 
 #### Descrição narrativa
 1. Ler uma nota.
@@ -365,23 +385,23 @@ console.log("Numero valido");
 ```mermaid
 flowchart TD
 A([INICIO]) --> B[/nota/]
-B --> C{nota >= 0 e nota <= 10}
+B --> C{nota < 0 ou nota > 10}
 subgraph SEQ [Laco do...while]
-C -- F --> D[/Nota invalida/]
+C -- V --> D[/Nota invalida/]
 D --> E[/nota/]
 E -- LOOP --> C
 end
-C -- V --> F[/Nota valida/]
+C -- F --> F[/Nota valida/]
 F --> G([FIM])
 ```
 
 #### Teste de mesa
 
-| passo | nota | nota >= 0 e nota <= 10 | mensagem | saída |
+| passo | nota | nota < 0 ou nota > 10 | mensagem | saída |
 | --- | --- | --- | --- | --- |
-| 1 | 12 | F | - | - |
-| 2 | -1 | F | - | - |
-| 3 | 8 | V | Nota valida: 8 | Nota valida: 8 |
+| 1 | 12 | V | Nota invalida | Nota invalida |
+| 2 | -1 | V | Nota invalida\nNota invalida | Nota invalida / Nota invalida |
+| 3 | 8 | F | Nota invalida\nNota invalida\nNota valida: 8 | Nota invalida / Nota invalida / Nota valida: 8 |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -396,6 +416,7 @@ nota = parseFloat(nota);
 
 do {
     if (nota < 0 || nota > 10) {
+        console.log("Nota invalida");
         nota = prompt("Nota invalida. Digite uma nota de 0 a 10:"); // -1, 8
         nota = parseFloat(nota);
     }
@@ -405,7 +426,7 @@ do {
 console.log(`Nota valida: ${nota}`);
 ```
 
-### Exemplo 8: `do...while` para mostrar menu ate escolher sair
+### Exemplo 8: `do...while` para mostrar menu até escolher sair
 
 #### Descrição narrativa
 1. Ler uma opção do menu.
@@ -417,8 +438,9 @@ console.log(`Nota valida: ${nota}`);
 ```mermaid
 flowchart TD
 A([INICIO]) --> B[/opcao/]
-B --> C{opcao == 1?}
+B --> C
 subgraph SEQ [Laco do...while]
+C{opcao == 1?}
 C -- V --> D[/Opcao 1 escolhida/]
 C -- F --> E{opcao == 2?}
 E -- V --> F[/Opcao 2 escolhida/]
@@ -430,21 +452,21 @@ I -- F --> K[/Opcao invalida/]
 D --> L{opcao != 0}
 F --> L
 H --> L
-J --> M([FIM])
+J --> L
 K --> L
 L -- V --> N[/opcao/]
 N -- LOOP --> C
 end
-L -- F --> M
+L -- F --> M([FIM])
 ```
 
 #### Teste de mesa
 
-| passo | opcao | opcao == 1 | opcao == 2 | opcao == 3 | opcao == 0 | opcao != 0 | mensagem | saída |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 2 | F | V | F | F | V | Opcao 2 escolhida | - |
-| 2 | 5 | F | F | F | F | V | Opcao 2 escolhida\nOpcao invalida | - |
-| 3 | 0 | F | F | F | V | F | Opcao 2 escolhida\nOpcao invalida\nEncerrar menu | Opcao 2 escolhida / Opcao invalida / Encerrar menu |
+| passo | opcao | opcao != 0 | mensagem | saída |
+| --- | --- | --- | --- | --- |
+| 1 | 2 | V | Opcao 2 escolhida | Opcao 2 escolhida |
+| 2 | 5 | V | Opcao 2 escolhida\nOpcao invalida | Opcao 2 escolhida / Opcao invalida |
+| 3 | 0 | F | Opcao 2 escolhida\nOpcao invalida\nEncerrar menu | Opcao 2 escolhida / Opcao invalida / Encerrar menu |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -480,7 +502,7 @@ do {
 console.log(mensagem);
 ```
 
-### Exemplo 9: `for` basico com contador
+### Exemplo 9: `for` básico com contador
 
 #### Descrição narrativa
 1. Ler a quantidade de iteracoes.
@@ -512,7 +534,7 @@ Entrada escolhida: `quantidade = 3`
 | 1 | 0 | V | 0 |
 | 2 | 1 | V | 1 |
 | 3 | 2 | V | 2 |
-| 4 | 3 | F | fim |
+| 4 | 3 | F | - |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -531,7 +553,7 @@ for (i = 0; i < quantidade; i++) {
 }
 ```
 
-### Exemplo 10: `for` para contar de 0 ate um limite
+### Exemplo 10: `for` para contar de 0 até um limite
 
 #### Descrição narrativa
 1. Ler o limite da contagem.
@@ -557,13 +579,13 @@ D -- F --> G([FIM])
 
 Entrada escolhida: `limite = 3`
 
-| passo | i | i <= limite | mensagem | saída |
-| --- | --- | --- | --- | --- |
-| 1 | 0 | V | 0 | - |
-| 2 | 1 | V | 0\n1 | - |
-| 3 | 2 | V | 0\n1\n2 | - |
-| 4 | 3 | V | 0\n1\n2\n3 | - |
-| 5 | 4 | F | 0\n1\n2\n3 | 0 / 1 / 2 / 3 |
+| passo | i | i <= limite | saída |
+| --- | --- | --- | --- |
+| 1 | 0 | V | 0 |
+| 2 | 1 | V | 0 / 1 |
+| 3 | 2 | V | 0 / 1 / 2 |
+| 4 | 3 | V | 0 / 1 / 2 / 3 |
+| 5 | 4 | F | 0 / 1 / 2 / 3 |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -614,14 +636,14 @@ D -- F --> H([FIM])
 
 Entrada escolhida: `num = 4`
 
-| passo | fator | fator <= 10 | prod | tabuada | saída |
-| --- | --- | --- | --- | --- | --- |
-| 1 | 1 | V | 4 | 4 x 1 = 4 | - |
-| 2 | 2 | V | 8 | 4 x 1 = 4\n4 x 2 = 8 | - |
-| 3 | 3 | V | 12 | 4 x 1 = 4\n4 x 2 = 8\n4 x 3 = 12 | - |
-| ... | ... | ... | ... | ... | ... |
-| 10 | 10 | V | 40 | ...\n4 x 10 = 40 | - |
-| 11 | 11 | F | - | tabuada completa | tabuada completa |
+| passo | fator | fator <= 10 | prod | saída |
+| --- | --- | --- | --- | --- |
+| 1 | 1 | V | 4 | 4 x 1 = 4 |
+| 2 | 2 | V | 8 | 4 x 1 = 4 / 4 x 2 = 8 |
+| 3 | 3 | V | 12 | 4 x 1 = 4 / 4 x 2 = 8 / 4 x 3 = 12 |
+| ... | ... | ... | ... | ... |
+| 10 | 10 | V | 40 | ... / 4 x 10 = 40 |
+| 11 | 11 | F | - | tabuada completa |
 
 #### Código JavaScript (Programiz)
 ```javascript
@@ -647,7 +669,7 @@ for (fator = 1; fator <= 10; fator++) {
 console.log(tabuada);
 ```
 
-### Exemplo 12: `for` para somar n numeros
+### Exemplo 12: `for` para somar n números
 
 #### Descrição narrativa
 1. Ler quantos números serão somados.
@@ -719,7 +741,7 @@ console.log(soma);
 ## 6. Fechamento
 Nesta aula, vimos que a escolha da estrutura de repetição depende do problema. O mais importante não é decorar sintaxe, mas perceber se o algoritmo depende de uma condição aberta, de uma execução mínima obrigatória ou de uma quantidade conhecida de repetições.
 
-## Referencias bibliograficas
+## Referências bibliográficas
 1. MOZILLA DEVELOPER NETWORK. `while`. Disponível em: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/while.
 2. MOZILLA DEVELOPER NETWORK. `do...while`. Disponível em: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/do...while.
 3. MOZILLA DEVELOPER NETWORK. `for`. Disponível em: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/for.

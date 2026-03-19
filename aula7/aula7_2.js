@@ -9,6 +9,7 @@ num = prompt("Digite um numero positivo:"); // -3
 num = parseInt(num);
 
 while (num <= 0) {
+  console.log("Numero invalido");
   num = prompt("Digite um numero positivo:"); // 0, 7
   num = parseInt(num);
 }
