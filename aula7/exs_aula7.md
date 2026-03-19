@@ -141,5 +141,3 @@ Se a proposta for começar com exercícios mais simples e próximos dos exemplos
 
 ## Fontes
 - Categoria Iniciante do Beecrowd: https://judge.beecrowd.com/en/questions/categories/1
-- Exemplo com repetição controlada, `1114` Senha Fixa: https://judge.beecrowd.com/en/problems/view/1114
-- Exemplo com `for`, `1078` Tabuada: https://judge.beecrowd.com/en/problems/view/1078
