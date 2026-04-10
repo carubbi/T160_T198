@@ -324,6 +324,30 @@ Para `n = 4`, teremos:
 ### Observação didática
 Neste exemplo, foi usada uma estrutura de dados simples para reunir **vários resultados em um único retorno**. Em seguida, cada resultado foi armazenado em sua própria variável, evitando o uso direto de indexação. A ideia aparece aqui apenas como antecipação prática; **estruturas de dados** serão estudadas com mais profundidade mais adiante na disciplina.
 
+### Exemplo simples: loop infinito com uso de `break`
+
+Em alguns problemas, não sabemos com antecedência **quantas repetições** serão necessárias. Nesses casos, pode ser útil usar um **loop infinito** e interrompê-lo quando uma condição de parada for satisfeita.
+
+#### Código JavaScript
+```javascript
+let numero;
+
+while (true) {
+    numero = parseInt(prompt("Digite 0 para sair:"));
+
+    if (numero === 0) {
+        break;
+    }
+
+    console.log("Voce digitou: " + numero);
+}
+
+console.log("Programa encerrado.");
+```
+
+### Observação didática
+O laço `while (true)` cria uma repetição que, em princípio, nunca termina sozinha. Por isso, ele só deve ser usado quando existe uma **condição de parada clara** dentro do bloco. Neste exemplo, o comando `break` encerra o laço quando o usuário digita `0`.
+
 ## Algoritmo de fatorial
 
 ### Ideia principal
