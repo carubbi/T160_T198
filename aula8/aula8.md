@@ -6,7 +6,7 @@ Orientador: Prof. Me Ricardo Carubbi
 ## Funções e algoritmos clássicos
 
 ### Objetivo da aula
-Compreender como **reutilizar código com funções** e como implementar **algoritmos clássicos** de **troca de valores**, **contagem**, **soma**, **multiplicação**, **fatorial**, **Fibonacci**, **conversão de base** e **geração dos primeiros números primos** em JavaScript.
+Compreender como **reutilizar código com funções** e como implementar **algoritmos clássicos** de **troca de valores**, **maior valor e posição**, **loop infinito com `break`**, **fatorial**, **Fibonacci**, **conversão de base** e **geração dos primeiros números primos** em JavaScript.
 
 ## 1. Fundamentação teórica
 Em algoritmos maiores, repetir o mesmo bloco de código em vários pontos dificulta a **manutenção**, aumenta a **chance de erro** e torna a leitura mais cansativa. Para evitar isso, usamos **funções**.
@@ -129,17 +129,23 @@ function mostrarMensagem(nome) {
 }
 
 let aluno;
+let disciplina;
 
+// Entrada de dados
 aluno = prompt("Digite o nome do aluno:"); // Ana
+disciplina = prompt("Digite o nome da disciplina:"); // Logica
 
+// Chamada da funcao
 mostrarMensagem(aluno);
-console.log(aluno);
+
+// Saida de dados
+console.log("Disciplina atual: " + disciplina);
 ```
 
 ### Observação didática
-No exemplo, `nome` e `saudacao` pertencem ao **escopo local** da função `mostrarMensagem`. Já a variável `aluno` foi declarada fora da função e pertence ao **escopo global**.
+No exemplo, `nome` e `saudacao` pertencem ao **escopo local** da função `mostrarMensagem`. Já as variáveis `aluno` e `disciplina` foram declaradas fora da função e pertencem ao **escopo global**.
 
-Observe também que `mostrarMensagem` **não usa `return`**. Isso acontece porque seu objetivo não é **devolver um valor**, mas realizar uma **saída** com `console.log()`. Esse tipo de função também é válido e útil quando a responsabilidade principal é **executar uma ação**.
+Observe também que `mostrarMensagem` **não usa `return`**. Isso acontece porque seu objetivo não é **devolver um valor**, mas realizar uma **saída** com `console.log()`. Esse tipo de função também é válido e útil quando a responsabilidade principal é **executar uma ação** dentro de um problema maior.
 
 Entender escopo é importante para:
 
@@ -158,7 +164,9 @@ Quando um mesmo cálculo ou processo aparece várias vezes, ele deve ser colocad
 1. Criar uma função que receba um número.
 2. Multiplicar esse número por 2.
 3. Retornar o resultado.
-4. Chamar a função para diferentes valores.
+4. Repetir a leitura de valores.
+5. Chamar a função a cada repetição.
+6. Exibir o resultado calculado.
 
 #### Código JavaScript
 ```javascript
@@ -168,25 +176,23 @@ function calcularDobro(numero) {
     return numero * 2;
 }
 
-let valor1;
-let valor2;
-let valor3;
+let valor;
+let i;
 
-valor1 = prompt("Digite o primeiro valor:"); // 5
-valor2 = prompt("Digite o segundo valor:"); // 8
-valor3 = prompt("Digite o terceiro valor:"); // 12
+for (i = 1; i <= 3; i++) {
+    // Entrada de dados
+    valor = prompt("Digite um valor:"); // 5, 8, 12
 
-valor1 = calcularDobro(valor1);
-valor2 = calcularDobro(valor2);
-valor3 = calcularDobro(valor3);
+    // Chamada da funcao
+    valor = calcularDobro(valor);
 
-console.log(valor1);
-console.log(valor2);
-console.log(valor3);
+    // Saida de dados
+    console.log(valor);
+}
 ```
 
 ### Observação didática
-Sem função, o cálculo `numero * 2` seria repetido várias vezes. Com função, o algoritmo fica **menor**, mais **organizado** e mais **fácil de alterar**.
+Sem função, o cálculo `numero * 2` seria repetido várias vezes. Com função, o algoritmo fica **menor**, mais **organizado** e mais **fácil de alterar**. A estrutura de repetição também ajuda a evitar a duplicação de comandos quando queremos aplicar a mesma função a vários valores.
 
 ### Exemplo de modularização
 
@@ -258,12 +264,32 @@ Para isso, normalmente usamos uma **variável auxiliar**.
 1. Guardar o valor de `a` em uma variável auxiliar.
 2. Copiar o valor de `b` para `a`.
 3. Copiar o valor auxiliar para `b`.
-4. Organizar os novos valores em uma estrutura de dados simples.
-5. Retornar essa estrutura.
-6. Armazenar cada valor retornado em uma variável.
+4. Obter os valores trocados.
 
-#### Código JavaScript
+#### Código JavaScript com variável temporária
 ```javascript
+let a;
+let b;
+let temp;
+
+a = prompt("Digite o valor de a:"); // 10
+b = prompt("Digite o valor de b:"); // 25
+
+a = parseFloat(a);
+b = parseFloat(b);
+
+temp = a;
+a = b;
+b = temp;
+
+console.log(a); // 25
+console.log(b); // 10
+```
+
+#### Variação com função
+```javascript
+let a;
+let b;
 function trocarValores(a, b) {
     let aux;
 
@@ -291,28 +317,8 @@ console.log(novoA); // 25
 console.log(novoB); // 10
 ```
 
-#### Opção equivalente usando variável temporária de forma direta
-```javascript
-let a;
-let b;
-let temp;
-
-a = prompt("Digite o valor de a:"); // 10
-b = prompt("Digite o valor de b:"); // 25
-
-a = parseFloat(a);
-b = parseFloat(b);
-
-temp = a;
-a = b;
-b = temp;
-
-console.log(a); // 25
-console.log(b); // 10
-```
-
 ### Observação didática
-Esse algoritmo é importante porque aparece em **ordenação**, **reorganização de dados** e vários problemas de **comparação**. No primeiro exemplo, foi usada uma estrutura de dados simples para devolver dois valores ao mesmo tempo, e depois cada valor foi armazenado em sua própria variável. Na opção equivalente, a troca foi mostrada de forma **direta**, usando apenas uma **variável temporária**. O estudo formal de **estruturas de dados** será abordado mais adiante na disciplina.
+Esse algoritmo é importante porque aparece em **ordenação**, **reorganização de dados** e vários problemas de **comparação**. Na opção mais direta, a troca foi mostrada usando apenas uma **variável temporária**. No segundo exemplo, os colchetes foram usados apenas como uma forma prática de devolver dois valores ao mesmo tempo. Neste momento, o objetivo não é aprofundar estruturas de dados, mas apenas mostrar uma maneira simples de fazer uma função devolver mais de um resultado.
 
 ### Exemplo de uso em um problema maior
 No problema [BEE1046.js](/Users/carubbi/Documents/aulas/T160_T998/beecrowd/BEE1046.js), a solução mais direta calcula a duração do jogo comparando `inicio` e `fim`, sem necessidade de troca. Mesmo assim, o contexto do problema ajuda a visualizar onde o algoritmo de troca pode aparecer como estratégia auxiliar de organização.
@@ -346,102 +352,120 @@ console.log("Maior horario: " + fim);
 ### Ponto de atenção
 Nesse caso, a troca é apenas um **exemplo de aplicação** do algoritmo dentro de um problema maior. Ela **não substitui** a solução principal do `BEE1046`, que continua sendo mais bem resolvida pela comparação direta entre horário inicial e final.
 
-## 6. Algoritmo de contagem, soma e multiplicação
+## 6. Algoritmo de maior valor e posição
 
 ### Ideia principal
-Em problemas com repetição, três padrões aparecem com frequência:
+Em alguns problemas, não precisamos guardar todos os valores lidos. Basta acompanhar, ao longo da repetição:
 
-- **contador**: registra quantas vezes algo aconteceu;
-- **acumulador de soma**: soma valores ao longo do processo;
-- **acumulador de produto**: multiplica valores ao longo do processo.
+- o **maior valor encontrado até o momento**;
+- a **posição** em que esse valor apareceu.
 
-### Exemplo básico: contar, somar e multiplicar de 1 até `n`
+Esse padrão aparece no problema **1080 - Maior e Posição** do Beecrowd. Mesmo sem usar vetor, é possível resolver o problema com repetição, comparação e atualização de variáveis.
+
+### Exemplo básico: encontrar o maior valor e sua posição
 
 #### Descrição narrativa
-1. Ler um valor `n`.
-2. Repetir de 1 até `n`.
-3. Incrementar o contador.
-4. Somar o valor atual ao acumulador.
-5. Multiplicar o valor atual ao produto.
-6. Organizar os resultados em uma estrutura de dados simples.
-7. Retornar essa estrutura.
-8. Armazenar cada resultado em uma variável própria.
+1. Criar uma função para converter o texto digitado em número.
+2. Criar uma função para ler os valores e identificar o maior valor e sua posição.
+3. Ler o primeiro valor para inicializar `maior` e `posicao`.
+4. Repetir a leitura dos demais valores.
+5. Comparar cada novo valor com o maior atual.
+6. Atualizar `maior` e `posicao` quando necessário.
+7. Devolver os dois resultados ao final.
 
 #### Código JavaScript
 ```javascript
-function calcularResumo(n) {
-    let contador;
-    let soma;
-    let produto;
+function converteNum(texto) {
+    let num;
+
+    num = parseFloat(texto);
+
+    if (num % 1 === 0) {
+        return parseInt(num);
+    } else {
+        return num;
+    }
+}
+
+function buscarMaiorPosicao() {
+    let numero;
+    let maior;
+    let posicao;
     let i;
 
-    n = parseInt(n);
-    contador = 0;
-    soma = 0;
-    produto = 1;
+    // Entrada de dados
+    numero = converteNum(prompt("Digite um valor:"));
+    maior = numero;
+    posicao = 1;
 
-    for (i = 1; i <= n; i++) {
-        contador++;
-        soma = soma + i;
-        produto = produto * i;
+    for (i = 2; i <= 100; i++) {
+        // Entrada de dados
+        numero = converteNum(prompt("Digite um valor:"));
+
+        if (numero > maior) {
+            maior = numero;
+            posicao = i;
+        }
     }
 
-    return [contador, soma, produto];
+    return [maior, posicao];
 }
 
 let resultado;
-let contadorFinal;
-let somaFinal;
-let produtoFinal;
-let n;
+let maiorValor;
+let posicaoMaior;
 
-n = prompt("Digite o valor de n:"); // 4
-resultado = calcularResumo(n);
-[contadorFinal, somaFinal, produtoFinal] = resultado;
+// Chamada da funcao
+resultado = buscarMaiorPosicao();
+[maiorValor, posicaoMaior] = resultado;
 
-console.log("Contagem: " + contadorFinal);
-console.log("Soma: " + somaFinal);
-console.log("Produto: " + produtoFinal);
+// Saida de dados
+console.log(maiorValor);
+console.log(posicaoMaior);
 ```
 
-Para `n = 4`, teremos:
-
-- contagem = 4
-- soma = 10
-- produto = 24
-
 ### Observação didática
-Neste exemplo, foi usada uma estrutura de dados simples para reunir **vários resultados em um único retorno**. Em seguida, cada resultado foi armazenado em sua própria variável, evitando o uso direto de indexação. A ideia aparece aqui apenas como antecipação prática; **estruturas de dados** serão estudadas com mais profundidade mais adiante na disciplina.
+Esse exemplo mostra uma forma de modularizar um problema de repetição e comparação. A função `buscarMaiorPosicao` concentra a responsabilidade de ler os valores e atualizar o maior valor encontrado. Ao final, os colchetes são usados apenas como uma forma prática de devolver dois resultados ao mesmo tempo: o maior valor e sua posição.
 
-### Exemplo simples: loop infinito com uso de `break`
+## 7. Loop infinito com uso de `break`
+
+### Exemplo básico em um problema maior
 
 Em alguns problemas, não sabemos com antecedência **quantas repetições** serão necessárias. Nesses casos, pode ser útil usar um **loop infinito** e interrompê-lo quando uma condição de parada for satisfeita.
 
 #### Código JavaScript
 ```javascript
-function lerAteZero() {
+function somarAteZero() {
     let numero;
+    let soma;
+
+    soma = 0;
 
     while (true) {
-        numero = parseInt(prompt("Digite 0 para sair:"));
+        // Entrada de dados
+        numero = parseInt(prompt("Digite um numero (0 para sair):"));
 
         if (numero === 0) {
             break;
         }
 
-        console.log("Voce digitou: " + numero);
+        soma = soma + numero;
     }
 
-    console.log("Programa encerrado.");
+    // Saida de dados
+    console.log("Soma: " + soma);
 }
 
-lerAteZero();
+// Chamada da funcao
+somarAteZero();
 ```
 
 ### Observação didática
-O laço `while (true)` cria uma repetição que, em princípio, nunca termina sozinha. Por isso, ele só deve ser usado quando existe uma **condição de parada clara** dentro do bloco. Neste exemplo, a função `lerAteZero` organiza esse comportamento em uma responsabilidade específica, e o comando `break` encerra o laço quando o usuário digita `0`.
+O laço `while (true)` cria uma repetição que, em princípio, nunca termina sozinha. Por isso, ele só deve ser usado quando existe uma **condição de parada clara** dentro do bloco. Neste exemplo, a função `somarAteZero` organiza esse comportamento em uma responsabilidade específica, e o comando `break` encerra o laço quando o usuário digita `0`. O problema maior, aqui, é acumular a soma dos valores informados antes do encerramento.
 
-## Algoritmo de fatorial
+Antes de avançar para o fatorial, observe uma diferença importante: no exemplo com `break`, a repetição termina por uma **condição interna**. Já no fatorial, a quantidade de repetições é definida pelo valor de `n`.
+
+## 8. Algoritmo de fatorial
 
 ### Ideia principal
 O **fatorial** de um número natural `n` é o produto de todos os inteiros de `1` até `n`.
@@ -486,9 +510,9 @@ console.log(calcularFatorial(numero)); // 120
 ```
 
 ### Ponto de atenção
-O algoritmo iterativo de fatorial usa **multiplicação acumulada**. Por isso, ele é um caso particular do padrão visto na seção anterior.
+O algoritmo iterativo de fatorial usa **multiplicação acumulada**. Mesmo sem uma seção específica sobre acumuladores nesta aula, vale observar que o valor de `fatorial` vai sendo atualizado a cada repetição até formar o resultado final.
 
-## 8. Algoritmo de sequência de Fibonacci
+## 9. Algoritmo de sequência de Fibonacci
 
 ### Ideia principal
 Na **sequência de Fibonacci**, cada termo a partir do terceiro é a **soma dos dois anteriores**.
@@ -544,7 +568,7 @@ console.log(gerarFibonacci(quantidade)); // 0, 1, 1, 2, 3, 5, 8
 ### Ponto de atenção
 Neste algoritmo, a **ordem das atualizações importa**. Se as variáveis forem atualizadas na ordem errada, a sequência fica incorreta.
 
-## 9. Algoritmo de conversão de base
+## 10. Algoritmo de conversão de base
 
 ### Ideia principal
 **Conversão de base** é a mudança de representação de um número. Um caso clássico em aulas introdutórias é converter um **número decimal para binário**.
@@ -602,7 +626,7 @@ Esse algoritmo combina:
 - **divisão inteira**;
 - construção gradual de uma resposta.
 
-## 10. Algoritmo de geração dos n-primeiros números primos
+## 11. Algoritmo de geração dos n-primeiros números primos
 
 ### Ideia principal
 Um **número primo** é divisível apenas por `1` e por ele mesmo.
@@ -683,64 +707,18 @@ Esse algoritmo usa decomposição em funções:
 
 Esse é um bom exemplo de **reutilização de código**.
 
-## 11. Comparativo rápido dos algoritmos estudados
+## 12. Comparativo rápido dos algoritmos estudados
 
 | Tema | Ideia central | Estrutura mais usada |
 | --- | --- | --- |
 | Reutilização com funções | evitar repetição de código | função com parâmetros e `return` |
 | Troca de valores | inverter conteúdos de duas variáveis | variável auxiliar |
-| Contagem, soma e multiplicação | acompanhar repetições e acumulações | `for` ou `while` |
+| Maior valor e posição | comparar valores e atualizar posição | `for` |
+| Loop infinito com `break` | repetir até uma condição interna de parada | `while (true)` |
 | Fatorial | produto acumulado de 1 até `n` | `for` |
 | Fibonacci | soma dos dois termos anteriores | `for` |
 | Conversão de base | divisões sucessivas e restos | `while` |
 | Números primos | teste de divisibilidade | funções + repetição |
-
-## 12. Exemplo do Beecrowd: `1153` Fatorial Simples
-
-### Por que este problema é adequado?
-O problema `1153` trabalha diretamente com:
-
-- **repetição**;
-- **acumulador de produto**;
-- **algoritmo de fatorial**;
-- organização da solução com **função**.
-
-Mesmo que o enunciado não exija explicitamente funções, podemos usá-las para deixar a solução mais **clara**.
-
-### Estratégia de resolução
-1. Ler um número inteiro `n`.
-2. Criar uma função `calcularFatorial`.
-3. Multiplicar os valores de 1 até `n`.
-4. Imprimir o resultado.
-
-### Solução em JavaScript para o Beecrowd
-```javascript
-const fs = require("fs");
-const input = fs.readFileSync(0, "utf8").trim();
-
-function calcularFatorial(n) {
-    let fatorial;
-    let i;
-
-    n = parseInt(n);
-    fatorial = 1;
-
-    for (i = 1; i <= n; i++) {
-        fatorial = fatorial * i;
-    }
-
-    return fatorial;
-}
-
-console.log(calcularFatorial(input));
-```
-
-### Observação didática
-Esse exemplo mostra que **funções** não servem apenas para programas grandes. Mesmo em problemas pequenos, elas ajudam a separar:
-
-- **leitura da entrada**;
-- **processamento principal**;
-- **exibição da saída**.
 
 ## 13. Erros comuns
 
@@ -754,12 +732,12 @@ Esse exemplo mostra que **funções** não servem apenas para programas grandes.
 8. Confundir variáveis locais da função com variáveis declaradas fora dela.
 
 ## 14. Fechamento
-Nesta aula, você estudou como usar **funções** para organizar algoritmos e **reaproveitar lógica**. Também viu sete padrões clássicos muito frequentes em programação introdutória: **troca de valores**, **acumuladores**, **fatorial**, **Fibonacci**, **conversão de base** e **números primos**.
+Nesta aula, você estudou como usar **funções** para organizar algoritmos e **reaproveitar lógica**. Também viu padrões clássicos muito frequentes em programação introdutória: **troca de valores**, **maior valor e posição**, **loop infinito com `break`**, **fatorial**, **Fibonacci**, **conversão de base** e **números primos**.
 
 O ponto central não é apenas memorizar cada algoritmo, mas perceber que muitos problemas podem ser construídos a partir de poucos **padrões**:
 
 - **repetição**;
-- **contagem**;
+- **comparação**;
 - **acumulação**;
 - **teste de divisibilidade**;
 - **decomposição em funções**.
