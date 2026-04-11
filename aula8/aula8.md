@@ -194,6 +194,47 @@ for (i = 1; i <= 3; i++) {
 ### Observação didática
 Sem função, o cálculo `numero * 2` seria repetido várias vezes. Com função, o algoritmo fica **menor**, mais **organizado** e mais **fácil de alterar**. A estrutura de repetição também ajuda a evitar a duplicação de comandos quando queremos aplicar a mesma função a vários valores.
 
+### Exemplo com mais de um `return`
+
+#### Descrição narrativa
+1. Criar uma função que receba a média do aluno.
+2. Verificar a situação do aluno com base nessa média.
+3. Devolver `"Aprovado"`, `"Final"` ou `"Reprovado"`.
+4. Ler a média no programa principal.
+5. Chamar a função e exibir a classificação obtida.
+
+#### Código JavaScript
+```javascript
+function situacaoAluno(media) {
+    if (media >= 7) {
+        return "Aprovado";
+    } else if (media >= 4) {
+        return "Final";
+    } else {
+        return "Reprovado";
+    }
+}
+
+let entradaMedia;
+let mediaAluno;
+let mensagem;
+
+// Entrada de dados
+entradaMedia = prompt("Digite a media do aluno:"); // 6.5
+
+// Processamento dos dados
+mediaAluno = parseFloat(entradaMedia);
+
+// Chamada da funcao
+mensagem = situacaoAluno(mediaAluno);
+
+// Saida de dados
+console.log(mensagem); // Final
+```
+
+### Observação didática
+Esse exemplo mostra que uma função pode ter **mais de um `return`**. Em cada caso, a função devolve um valor diferente e encerra sua execução naquele ponto. Isso é útil quando o resultado depende de **condições diferentes**.
+
 ### Exemplo de modularização
 
 #### Descrição narrativa
