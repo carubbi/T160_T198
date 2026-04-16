@@ -659,6 +659,16 @@ numero = prompt("Digite um número decimal inteiro:"); // 13
 console.log(decimalParaBinario(numero)); // 1101
 ```
 
+#### Teste de mesa
+Considerando `numero = 13`, o comportamento das variáveis em `decimalParaBinario` será:
+
+| Iteração | `numero` | `resto` | `binario` | `numero` atualizado |
+| --- | --- | --- | --- | --- |
+| 1ª | 13 | 1 | `"1"` | 6 |
+| 2ª | 6 | 0 | `"01"` | 3 |
+| 3ª | 3 | 1 | `"101"` | 1 |
+| 4ª | 1 | 1 | `"1101"` | 0 |
+
 ### Observação didática
 Esse algoritmo combina:
 
