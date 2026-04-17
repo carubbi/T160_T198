@@ -468,6 +468,88 @@ console.log(posicaoMaior);
 ### Observação didática
 Esse exemplo mostra uma forma de modularizar um problema de repetição e comparação. A função `buscarMaiorPosicao` concentra a responsabilidade de ler os valores e atualizar o maior valor encontrado. Ao final, os colchetes são usados apenas como uma forma prática de devolver dois resultados ao mesmo tempo: o maior valor e sua posição.
 
+Caso você não queira misturar as responsabilidades de ler os valores e atualizar o maior valor encontrado, segue uma separação mais adequada:
+
+1. Entrada de dados
+2. Conversão
+3. Processamento (concentra a lógica)
+4. Saída
+
+```javascript
+// Função responsável por converter um texto em número
+function converteNum(texto) {
+    let num;
+
+    // Tenta converter o texto para número decimal (float)
+    num = parseFloat(texto);
+
+    // Verifica se o número é inteiro
+    // (resto da divisão por 1 igual a 0 indica inteiro)
+    if (num % 1 === 0) {
+        // Converte explicitamente para inteiro
+        num = parseInt(texto);
+    }
+
+    // Retorna o número convertido
+    return num;
+}
+
+// Função responsável por ler um número do usuário
+function lerNum() {
+    let entrada;
+
+    // Solicita ao usuário que digite um valor
+    entrada = prompt('Digite um número: ');
+
+    // Converte o valor digitado e retorna
+    return converteNum(entrada);
+}
+
+// Função responsável por encontrar o maior valor
+// e sua posição entre uma quantidade de números informada
+function buscarMaiorPosicao(quantidade) {
+
+    // Inicializa o maior valor com o menor possível
+    let maior = -Infinity;
+
+    // Inicializa a posição com valor inválido
+    let posicao = -1;
+
+    // Loop para ler 'quantidade' de números
+    for (let i = 1; i <= quantidade; i++) {
+
+        // Lê um número do usuário
+        const numero = lerNum();
+
+        // Verifica se o número atual é maior que o maior já encontrado
+        if (numero > maior) {
+
+            // Atualiza o maior valor
+            maior = numero;
+
+            // Guarda a posição (ordem de entrada)
+            posicao = i;
+        }
+    }
+
+    // Retorna um conjunto de dados (array):
+    return [maior, posicao];
+}
+
+// Declaração das variáveis que receberão o resultado
+let numMaior, posMaior;
+
+// Chamada da função principal de processamento
+// Utiliza desestruturação para separar os valores retornados
+[numMaior, posMaior] = buscarMaiorPosicao(5); // 5 números apenas
+
+// Exibe o maior valor encontrado
+console.log(numMaior);
+
+// Exibe a posição em que o maior valor foi digitado
+console.log(posMaior);
+```
+
 ## 7. Loop infinito com uso de `break`
 
 ### Exemplo básico em um problema maior
