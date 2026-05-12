@@ -590,7 +590,7 @@ let media;
 let i;
 
 // Entrada
-entrada = prompt("Digite as notas separadas por quebra de linha:");
+entrada = prompt("Digite as notas separadas por quebra de linha:"); // "8.5\n7.0\n9.2\n6.5\n10.0"
 
 // Processamento: separa a entrada em partes textuais
 partes = entrada.split("\n");
