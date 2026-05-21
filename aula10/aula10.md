@@ -184,15 +184,12 @@ for (i = 0; i < dados.length - 1; i++) {
     valores[i] = parseInt(dados[i]);
 }
 
-// Busca linear com parada antecipada
-i = 0;
-
-while (i < valores.length && pos === -1) {
+// Busca linear com for e parada antecipada
+for (i = 0; i < valores.length; i++) {
     if (valores[i] === valorBusca) {
         pos = i;
+        break;
     }
-
-    i++;
 }
 
 // Saída
@@ -212,18 +209,43 @@ Por isso, usamos `-1` para representar a ideia de **não encontrado**.
 
 ### Observação
 
-A condição:
+O comando `break` encerra o laço assim que o valor procurado é encontrado.
+
+Isso evita percorrer o restante do vetor sem necessidade.
+
+Essa versão é adequada quando queremos encontrar apenas a primeira ocorrência.
+
+### Variação com função
+
+Também podemos separar a busca linear em uma função.
+
+Essa organização deixa o código mais modular: a função recebe o vetor e o valor procurado, realiza a busca e devolve a posição encontrada.
 
 ```javascript
-i < valores.length && pos === -1
+function buscaLinear(valores, valorBusca) {
+    let i;
+    let pos;
+
+    pos = -1;
+
+    for (i = 0; i < valores.length; i++) {
+        if (valores[i] === valorBusca) {
+            pos = i;
+            break;
+        }
+    }
+
+    return pos;
+}
 ```
 
-significa:
+Uso da função:
 
-- continue enquanto ainda houver posições válidas;
-- continue enquanto o valor ainda não tiver sido encontrado.
+```javascript
+pos = buscaLinear(valores, valorBusca);
+```
 
-Essa versão é melhor quando queremos encontrar apenas a primeira ocorrência.
+Se a função encontrar o valor, retorna o índice da primeira ocorrência. Se não encontrar, retorna `-1`.
 
 ### Ponto de atenção
 
