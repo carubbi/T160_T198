@@ -333,6 +333,10 @@ flowchart TD
 
 ## 7. Implementação da busca binária
 
+Neste exemplo, a busca binária trabalha com um vetor já ordenado.
+
+A cada repetição, o algoritmo calcula o índice do meio da região pesquisada e decide se deve continuar pela metade esquerda ou pela metade direita.
+
 ```javascript
 let linha;
 let dados;
@@ -367,15 +371,16 @@ fim = valores.length - 1;
 pos = -1;
 
 // Busca binária
-while (inicio <= fim && pos === -1) {
+while (inicio <= fim) {
     meio = parseInt((inicio + fim) / 2);
 
-    if (valores[meio] === valorBusca) {
+    if (valorBusca === valores[meio]) {
         pos = meio;
-    } else if (valorBusca < valores[meio]) {
-        fim = meio - 1;
-    } else {
+        break;
+    } else if (valorBusca > valores[meio]) {
         inicio = meio + 1;
+    } else {
+        fim = meio - 1;
     }
 }
 
@@ -386,6 +391,45 @@ if (pos !== -1) {
     console.log("Valor nao encontrado");
 }
 ```
+
+### Variação com função
+
+Também podemos separar a busca binária em uma função.
+
+Essa organização deixa o código mais modular: a função recebe o vetor ordenado e o valor procurado, realiza a busca e devolve a posição encontrada.
+
+```javascript
+function buscaBinaria(vetor, alvo) {
+    let inicio;
+    let fim;
+    let meio;
+
+    inicio = 0;
+    fim = vetor.length - 1;
+
+    while (inicio <= fim) {
+        meio = parseInt((inicio + fim) / 2);
+
+        if (alvo === vetor[meio]) {
+            return meio;
+        } else if (alvo > vetor[meio]) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+
+    return -1;
+}
+```
+
+Uso da função:
+
+```javascript
+pos = buscaBinaria(valores, valorBusca);
+```
+
+Se a função encontrar o valor, retorna o índice em que ele aparece no vetor ordenado. Se não encontrar, retorna `-1`.
 
 ### Explicação das variáveis
 
@@ -407,6 +451,18 @@ Exemplo problemático:
 ```
 
 Esse vetor não possui ordem crescente. Se aplicarmos busca binária nele, o algoritmo pode ignorar exatamente a parte onde o valor procurado está.
+
+### Observação sobre o cálculo do meio
+
+Nesta aula, não usamos `Math.floor` nem outra biblioteca para calcular o meio.
+
+Usamos:
+
+```javascript
+meio = parseInt((inicio + fim) / 2);
+```
+
+Nesse caso, `parseInt` transforma o resultado da divisão em um número inteiro, permitindo usar esse valor como índice do vetor.
 
 ### Visualização da busca binária
 
@@ -836,15 +892,16 @@ inicio = 0;
 fim = valores.length - 1;
 pos = -1;
 
-while (inicio <= fim && pos === -1) {
+while (inicio <= fim) {
     meio = parseInt((inicio + fim) / 2);
 
-    if (valores[meio] === valorBusca) {
+    if (valorBusca === valores[meio]) {
         pos = meio;
-    } else if (valorBusca < valores[meio]) {
-        fim = meio - 1;
-    } else {
+        break;
+    } else if (valorBusca > valores[meio]) {
         inicio = meio + 1;
+    } else {
+        fim = meio - 1;
     }
 }
 
