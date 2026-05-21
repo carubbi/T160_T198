@@ -46,7 +46,7 @@ O objetivo principal não é memorizar códigos prontos, mas entender como usar:
 
 ### Padrão de entrada desta aula
 
-Nos exemplos desta aula, a entrada será feita em uma única linha, com os dados separados por espaço.
+Nos exemplos desta aula, a entrada será feita com dados separados por espaço.
 
 Exemplo:
 
@@ -61,7 +61,7 @@ linha = prompt("Digite os dados separados por espaco:");
 dados = linha.split(" ");
 ```
 
-Quando o exemplo envolver busca, usaremos uma convenção:
+Quando o exemplo envolver busca linear, usaremos uma convenção:
 
 > O último número digitado será o valor procurado. Os números anteriores formarão o vetor.
 
@@ -76,6 +76,11 @@ Nesse caso:
 - vetor: `[12, 45, 7, 89, 23]`;
 - valor procurado: `7`.
 
+Quando o exemplo envolver busca binária, usaremos dois `prompt`:
+
+- o primeiro para digitar os valores do vetor;
+- o segundo para digitar o `alvo`, isto é, o valor procurado.
+
 ### Convenção de nomes nos exemplos
 
 Para manter os códigos curtos e legíveis, usaremos nomes de variáveis simples. Quando o nome tiver mais de uma palavra, usaremos **camelCase**.
@@ -84,8 +89,10 @@ Para manter os códigos curtos e legíveis, usaremos nomes de variáveis simples
 | --- | --- |
 | `linha` | texto digitado pelo usuário em uma única entrada |
 | `dados` | dados separados depois do `split(" ")` |
-| `valores` | vetor com os números que serão processados |
-| `valorBusca` | valor que será procurado no vetor |
+| `valores` | vetor com os números que serão processados nos exemplos gerais |
+| `vetor` | vetor usado nos exemplos de busca binária |
+| `valorBusca` | valor procurado nos exemplos de busca linear |
+| `alvo` | valor procurado nos exemplos de busca binária |
 | `achou` | indica se o valor foi encontrado |
 | `pos` | posição em que o valor foi encontrado |
 | `aux` | variável auxiliar usada na troca de valores |
@@ -340,44 +347,44 @@ A cada repetição, o algoritmo calcula o índice do meio da região pesquisada 
 ```javascript
 let linha;
 let dados;
-let valores;
-let valorBusca;
+let vetor;
+let alvo;
 let inicio;
 let fim;
 let meio;
 let pos;
 let i;
 
-// Entrada
-linha = prompt("Digite os valores ordenados e o valor procurado, separados por espaco:");
+// Entrada do vetor ordenado
+linha = prompt("Digite os valores ordenados, separados por espaco:");
+
+// Entrada do valor procurado
+alvo = parseInt(prompt("Digite o valor procurado:"));
 
 // Processamento: separa a linha em itens textuais
 dados = linha.split(" ");
 
 // Inicialização do vetor
-valores = [];
-
-// O último valor da linha será o valor procurado
-valorBusca = parseInt(dados[dados.length - 1]);
+vetor = [];
 
 // Conversão dos dados textuais para números
-for (i = 0; i < dados.length - 1; i++) {
-    valores[i] = parseInt(dados[i]);
+for (i = 0; i < dados.length; i++) {
+    vetor[i] = parseInt(dados[i]);
 }
 
 // Inicialização da busca binária
 inicio = 0;
-fim = valores.length - 1;
+fim = vetor.length - 1;
 pos = -1;
 
 // Busca binária
 while (inicio <= fim) {
     meio = parseInt((inicio + fim) / 2);
 
-    if (valorBusca === valores[meio]) {
+    if (alvo === vetor[meio]) {
         pos = meio;
         break;
-    } else if (valorBusca > valores[meio]) {
+    } else if (alvo > vetor[meio]) {
         inicio = meio + 1;
     } else {
         fim = meio - 1;
@@ -426,7 +433,7 @@ function buscaBinaria(vetor, alvo) {
 Uso da função:
 
 ```javascript
-pos = buscaBinaria(valores, valorBusca);
+pos = buscaBinaria(vetor, alvo);
 ```
 
 Se a função encontrar o valor, retorna o índice em que ele aparece no vetor ordenado. Se não encontrar, retorna `-1`.
@@ -435,6 +442,8 @@ Se a função encontrar o valor, retorna o índice em que ele aparece no vetor o
 
 | Variável | Papel no algoritmo |
 | --- | --- |
+| `vetor` | vetor ordenado em que a busca será realizada |
+| `alvo` | valor procurado no vetor |
 | `inicio` | primeiro índice da região ainda pesquisada |
 | `fim` | último índice da região ainda pesquisada |
 | `meio` | índice central entre `inicio` e `fim` |
@@ -849,8 +858,8 @@ Agora podemos conectar as duas ideias:
 ```javascript
 let linha;
 let dados;
-let valores;
-let valorBusca;
+let vetor;
+let alvo;
 let i;
 let j;
 let aux;
@@ -859,46 +868,46 @@ let fim;
 let meio;
 let pos;
 
-// Entrada
-linha = prompt("Digite os valores e o valor procurado, separados por espaco:");
+// Entrada do vetor
+linha = prompt("Digite os valores separados por espaco:");
+
+// Entrada do valor procurado
+alvo = parseInt(prompt("Digite o valor procurado:"));
 
 // Processamento: separa a linha em itens textuais
 dados = linha.split(" ");
 
 // Inicialização do vetor
-valores = [];
-
-// O último valor da linha será o valor procurado
-valorBusca = parseInt(dados[dados.length - 1]);
+vetor = [];
 
 // Conversão dos dados textuais para números
-for (i = 0; i < dados.length - 1; i++) {
-    valores[i] = parseInt(dados[i]);
+for (i = 0; i < dados.length; i++) {
+    vetor[i] = parseInt(dados[i]);
 }
 
 // Ordenação pelo método da bolha
-for (i = 0; i < valores.length - 1; i++) {
-    for (j = 0; j < valores.length - 1 - i; j++) {
-        if (valores[j] > valores[j + 1]) {
-            aux = valores[j];
-            valores[j] = valores[j + 1];
-            valores[j + 1] = aux;
+for (i = 0; i < vetor.length - 1; i++) {
+    for (j = 0; j < vetor.length - 1 - i; j++) {
+        if (vetor[j] > vetor[j + 1]) {
+            aux = vetor[j];
+            vetor[j] = vetor[j + 1];
+            vetor[j + 1] = aux;
         }
     }
 }
 
 // Busca binária no vetor ordenado
 inicio = 0;
-fim = valores.length - 1;
+fim = vetor.length - 1;
 pos = -1;
 
 while (inicio <= fim) {
     meio = parseInt((inicio + fim) / 2);
 
-    if (valorBusca === valores[meio]) {
+    if (alvo === vetor[meio]) {
         pos = meio;
         break;
-    } else if (valorBusca > valores[meio]) {
+    } else if (alvo > vetor[meio]) {
         inicio = meio + 1;
     } else {
         fim = meio - 1;
@@ -908,8 +917,8 @@ while (inicio <= fim) {
 // Saída do vetor ordenado
 console.log("Vetor ordenado:");
 
-for (i = 0; i < valores.length; i++) {
-    console.log(valores[i]);
+for (i = 0; i < vetor.length; i++) {
+    console.log(vetor[i]);
 }
 
 // Saída da busca
@@ -984,7 +993,7 @@ Para esta aula:
 10. Achar que a posição encontrada após ordenar é a posição original de entrada.
 11. Usar `sort()` ou `reverse()` do JavaScript sem entender o algoritmo.
 12. Esquecer de converter os valores de texto para número depois do `split`.
-13. Esquecer que, nos exemplos de busca desta aula, o último valor da entrada é o valor procurado e não faz parte do vetor.
+13. Esquecer que, nos exemplos de busca linear desta aula, o último valor da entrada é o valor procurado e não faz parte do vetor.
 
 ## 19. Exercícios em sala
 
@@ -1024,11 +1033,11 @@ Não use `sort()`.
 
 ### Exercício 5: busca binária
 
-Leia valores em ordem crescente e, ao final da mesma entrada, o valor procurado. Use busca binária para informar se o valor existe no vetor formado pelos valores anteriores.
+Leia valores em ordem crescente. Depois, leia separadamente o alvo da busca. Use busca binária para informar se o alvo existe no vetor.
 
 ### Exercício 6: ordenar e buscar
 
-Leia valores desordenados e, ao final da mesma entrada, o valor procurado. Ordene o vetor formado pelos valores anteriores usando o método da bolha e depois procure o valor usando busca binária.
+Leia valores desordenados. Depois, leia separadamente o alvo da busca. Ordene o vetor usando o método da bolha e depois procure o alvo usando busca binária.
 
 Ao final, exiba:
 
